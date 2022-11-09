@@ -21,7 +21,7 @@ const Login = ({ providers }) => {
 
 export const getServerSideProps = async () => {
   const providers = await getProviders()
-  console.log(providers)
+  console.log('load login')
   return {
     props: {
       providers,
