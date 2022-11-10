@@ -6,7 +6,11 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }) {
   return (
     <SessionProvider session={session}>
       <RecoilRoot>
-        <Component {...pageProps} />
+        { Component.PageLayout ? <Component.PageLayout>
+          <Component {...pageProps} />
+        </Component.PageLayout> :
+          <Component {...pageProps} />
+        }
       </RecoilRoot>
     </SessionProvider>
   )

@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil'
 import { currentTrackIdState, isPlayingState } from '../atoms/songAtom';
 import useSpotify from '../hooks/useSpotify';
 
+
 const Song = ({order, track}) => {
 
   const spotifyApi = useSpotify()
@@ -20,20 +21,22 @@ const Song = ({order, track}) => {
 
   return (
     <div
-      className='grid grid-cols-2 text-gray-500 py-4 px-5 hover:bg-gray-900 rounded-lg'
+      className=' text-gray-500 py-4 px-4 hover:bg-gray-900 rounded-lg'
       onClick={playSong}
     >
-      <div className='flex items-center space-x-4'>
-        <p>{order + 1}</p>
-        <img className='h-10 w-10' src={track.track.album.images[0].url} alt="" />
-        <div>
-          <p className='w-36 lg:w-64 text-white truncate'>{track.track.name}</p>
-          <p className='w-40'>{track.track.artists[0].name}</p>
+      <div className='grid grid-cols-song items-center gap-4'>
+        <div className='flex justify-end'>{order + 1}</div>
+        <div className='flex gap-4'>
+          <img className='h-10 w-10' src={track.track.album.images[0].url} alt="" />
+          <div className='grid'>
+            <p className='text-white truncate'>{track.track.name}</p>
+            <p className=''>{track.track.artists[0].name}</p>
+          </div>
         </div>
-      </div>
-      <div className='flex items-center justify-between ml-auto md:ml-0'>
-        <p className='w-40 hidden md:inline'>{track.track.album.name}</p>
-        <p>{millisToMinutesAndSeconds(track.track.duration_ms)}</p>
+
+        <p className='hidden md:inline'>{track.track.album.name}</p>
+        <p className='hidden md:inline'>3 ene 2020</p>
+        <div className=''>{millisToMinutesAndSeconds(track.track.duration_ms)}</div>
       </div>
     </div>
   )
