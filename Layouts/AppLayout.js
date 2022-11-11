@@ -11,7 +11,7 @@ const AppLayout = ({children}) => {
 
   return (
     <div className='bg-black h-screen overflow-hidden w-full'>
-      <main className='grid grid-cols-layout w-full'>
+      <div className='grid grid-cols-layout w-full'>
 
         <Sidebar/>
         <div className='relative'>
@@ -25,10 +25,13 @@ const AppLayout = ({children}) => {
               <ChevronDownIcon className='h-4 w-4 mr-1.5'/>
             </div>
           </header>
-          {children}
+          <div className='fixed overflow-y-scroll min-h-screen'>
+            {children}
+          </div>
+
         </div>
 
-      </main>
+      </div>
       <div className='sticky bottom-0'>
         <Player/>
       </div>
