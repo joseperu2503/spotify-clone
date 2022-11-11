@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import AppLayout from '../../Layouts/AppLayout'
 import useSpotify from '../../hooks/useSpotify'
-import { getSession, useSession } from 'next-auth/react'
-import Songs from '../../components/Songs'
+import { getSession } from 'next-auth/react'
 import { shuffle } from 'lodash'
 import { PlayCircleIcon,HeartIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/solid'
 import Songs2 from '../../components/Songs2'
 import { ClockIcon } from '@heroicons/react/24/outline'
+import { useRecoilState } from 'recoil'
+import { scrollState } from '../../atoms/scrollAtom'
 
 const colors = [
   'bg-indigo-500',
@@ -22,12 +23,10 @@ const colors = [
 const Playlist = () => {
   const spotifyApi = useSpotify()
   const { query } = useRouter()
-  const { data: session } = useSession()
   const [playlist, setPlaylist] = useState({});
   const [color, setColor] = useState(null);
   const [headerTop, setHeaderTop] = useState(false);
-  const myRef = useRef();
-
+  const [scroll, setScroll] = useRecoilState(scrollState);
 
   useEffect(() => {
     if (query.id) {
@@ -47,27 +46,15 @@ const Playlist = () => {
     setColor(shuffle(colors).pop())
   }, [query.id]);
 
-  const handleScroll = (e) => {
-    setHeaderTop(myRef.current.offsetTop >= 417)
-  }
   useEffect(() => {
-    console.log('page playlist')
-    myRef.current.scrollIntoView()
-  }, [query.id]);
+    setHeaderTop(scroll >= 417)
+  }, [scroll]);
+
+  console.log('renderizando playlist')
 
   return (
-    <div className='flex-grow text-white min-h-screen bg-zinc-900 w-full' onScroll={handleScroll}>
-      {/* <header className='absolute top-5 right-8'>
-        <div
-          className='flex items-center bg-black space-x-3 opacity-90 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2'
-          onClick={() => signOut()}
-        >
-          <img className='rounded-full w-10 h-10' src={session?.user.image} alt="" />
-          <h2>{session?.user.name}</h2>
-          <ChevronDownIcon className='h-5 w-5'/>
-        </div>
-      </header> */}
-      <section className={`flex items-end space-x-7 ${color} h-80 text-white p-8 w-full relative`}>
+    <div className='flex-grow text-white bg-zinc-900 w-full'>
+      <section className={`flex items-end space-x-7 ${color} h-96 text-white p-8 w-full relative`}>
         <div className='absolute top-0 right-0 left-0 bottom-0 bg-gradient-to-b to-black from-transparent opacity-50'>
         </div>
         <img src={playlist?.images?.[0]?.url} alt="" className='h-52 w-52 shadow-2xl z-0'/>
@@ -85,7 +72,7 @@ const Playlist = () => {
           <HeartIcon className='button w-8 h-8 text-green-400 hover:scale-100'/>
           <EllipsisHorizontalIcon className='button w-8 h-8 text-gray-300 hover:text-white hover:scale-100'/>
         </div>
-        <div className={`w-100 sticky top-16 px-8 mb-4 ${headerTop ? 'bg-black': ''}`} ref={myRef}>
+        <div className={`w-100 sticky top-16 px-8 mb-4 ${headerTop ? 'bg-black': ''}`}>
           <div className='grid grid-cols-song gap-4 w-100 h-10 border-gray-600 border-b text-xs px-4' >
             <div className='flex items-center justify-end text-base'>#</div>
             <div className='flex items-center'>TÍTULO</div>
