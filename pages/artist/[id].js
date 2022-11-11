@@ -97,12 +97,11 @@ const Artist = () => {
           <EllipsisHorizontalIcon className='button w-8 h-8 text-gray-300 hover:text-white hover:scale-100'/>
         </div>
       </div>
-
       <div className='px-8'>
-        <div>
-          <h2 className='text-2xl font-bold mb-5'>Popular</h2>
-          <TopTracks topTracks={topTracks}/>
-        </div>
+        <TopTracks topTracks={topTracks}/>
+      </div>
+      <div className='h-40'>
+
       </div>
     </div>
   )
