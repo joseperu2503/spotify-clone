@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import AppLayout from '../../Layouts/AppLayout'
 import useSpotify from '../../hooks/useSpotify'
@@ -25,6 +25,8 @@ const Playlist = () => {
   const { data: session } = useSession()
   const [playlist, setPlaylist] = useState({});
   const [color, setColor] = useState(null);
+  const [headerTop, setHeaderTop] = useState(false);
+  const myRef = useRef();
 
 
   useEffect(() => {
@@ -45,8 +47,12 @@ const Playlist = () => {
     setColor(shuffle(colors).pop())
   }, [query.id]);
 
+  const handleScroll = (e) => {
+    setHeaderTop(myRef.current.offsetTop >= 417)
+  }
+
   return (
-    <div className='flex-grow text-white h-screen overflow-y-scroll bg-zinc-900 w-full'>
+    <div className='flex-grow text-white h-screen overflow-y-scroll bg-zinc-900 w-full' onScroll={handleScroll}>
       {/* <header className='absolute top-5 right-8'>
         <div
           className='flex items-center bg-black space-x-3 opacity-90 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2'
@@ -75,8 +81,8 @@ const Playlist = () => {
           <HeartIcon className='button w-8 h-8 text-green-400 hover:scale-100'/>
           <EllipsisHorizontalIcon className='button w-8 h-8 text-gray-300 hover:text-white hover:scale-100'/>
         </div>
-        <div className='w-100 sticky top-16 px-8 mb-4 '>
-          <div className='grid grid-cols-song gap-4 w-100 h-10 border-gray-600 border-b text-xs px-4'>
+        <div className={`w-100 sticky top-16 px-8 mb-4 ${headerTop ? 'bg-black': ''}`} ref={myRef}>
+          <div className='grid grid-cols-song gap-4 w-100 h-10 border-gray-600 border-b text-xs px-4' >
             <div className='flex items-center justify-end text-base'>#</div>
             <div className='flex items-center'>TÍTULO</div>
             <div className='flex items-center'>ÁLBUM</div>
