@@ -3,6 +3,7 @@ import { millisToMinutesAndSeconds } from '../lib/time'
 import { useRecoilState } from 'recoil'
 import { currentTrackIdState, isPlayingState } from '../atoms/songAtom';
 import useSpotify from '../hooks/useSpotify';
+import Link from 'next/link';
 
 
 const Song = ({order, track}) => {
@@ -12,11 +13,11 @@ const Song = ({order, track}) => {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
 
   const playSong = async () => {
-    setCurrentTrackId(track.track.id)
-    setIsPlaying(true)
-    spotifyApi.play({
-      uris: [track.track.uri]
-    })
+    // setCurrentTrackId(track.track.id)
+    // setIsPlaying(true)
+    // spotifyApi.play({
+    //   uris: [track.track.uri]
+    // })
   }
 
   return (
@@ -30,7 +31,11 @@ const Song = ({order, track}) => {
           <img className='h-10 w-10' src={track.track.album.images[0].url} alt="" />
           <div className='grid'>
             <p className='text-white truncate'>{track.track.name}</p>
-            <p className=''>{track.track.artists[0].name}</p>
+            <p className='text-sm hover:underline '>
+              <Link href={`/artist/${track.track.artists[0].id}`}>
+                {track.track.artists[0].name}
+              </Link>
+            </p>
           </div>
         </div>
 

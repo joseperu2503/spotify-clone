@@ -14,6 +14,7 @@ const Main = ({session,children}) => {
   const route = useRouter()
 
   const handleScroll = (e) => {
+    console.log('scroll',e)
     setScroll(e.target.scrollTop)
   }
 
@@ -34,6 +35,9 @@ const Main = ({session,children}) => {
           paddingAbsolute : true,
           scrollbars : {
             clickScrolling : true
+          },
+          callbacks : {
+            onScroll : handleScroll,
           }
         }}>
           <div className='h-screen'>
@@ -42,28 +46,6 @@ const Main = ({session,children}) => {
 
         </OverlayScrollbarsComponent>
       </div>
-
-      {/* <OverlayScrollbarsComponent options={{
-        className       : "os-theme-light",
-        resize          : "both",
-        sizeAutoCapable : true,
-        paddingAbsolute : true,
-        scrollbars : {
-          clickScrolling : true
-        }
-      }}>
-        <div className='w-40 h-screen'>
-          <div className='w-full bg-red-400 h-60'>d</div>
-          <div className='w-full bg-red-400 h-60'>s</div>
-          <div className='w-full bg-red-400 h-60'>s</div>
-          <div className='w-full bg-red-400 h-60'></div>
-          <div className='w-full bg-red-400 h-60'></div>
-          <div className='w-full bg-red-400 h-60'>s</div>
-          <div className='w-full bg-red-400 h-60'></div>
-          <div className='w-full bg-red-400 h-60'></div>
-          <div className='w-full bg-red-400 h-60'></div>
-        </div>
-      </OverlayScrollbarsComponent> */}
     </>
   )
 }

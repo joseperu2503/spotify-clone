@@ -11,6 +11,9 @@ module.exports = {
       gridTemplateColumns: {
         'song': '16px 6fr 4fr 3fr minmax(120px,1fr)',
         'layout': '240px 1fr',
+      },
+      height: {
+        'header-artist': '40vh',
       }
     },
   },
