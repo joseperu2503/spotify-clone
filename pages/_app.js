@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import { RecoilRoot} from 'recoil'
 import { SessionProvider } from 'next-auth/react'
+// import "overlayscrollbars/css/OverlayScrollbars.css";
 
 function MyApp({ Component, pageProps: {session, ...pageProps} }) {
   return (
