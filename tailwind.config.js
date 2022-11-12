@@ -15,7 +15,14 @@ module.exports = {
       height: {
         'header-artist': '40vh',
         'header-album': '30vh',
+      },
+      colors: {
+        'sidebar-gray': '#b3b3b3',
+      },
+      backgroundImage:{
+        'gradient-liked-songs' : 'linear-gradient(135deg,#450af5,#c4efd9)'
       }
+
     },
   },
   plugins: [

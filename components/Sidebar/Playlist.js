@@ -8,17 +8,10 @@ const Playlist = ({playlist}) => {
   const onClick = () => {
     router.push(`/playlist/${playlist.id}`,undefined, { scroll: true })
   }
-
-
   return (
-    <p
-
-      className='cursor-pointer hover:text-white'
-      onClick={onClick}
-    >
+    <div className='h-8 flex items-center px-6 text-sm cursor-pointer hover:text-white' onClick={onClick}>
       {playlist.name}
-
-    </p>
+    </div>
   )
 }
 
