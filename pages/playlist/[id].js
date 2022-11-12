@@ -5,10 +5,10 @@ import useSpotify from '../../hooks/useSpotify'
 import { getSession } from 'next-auth/react'
 import { shuffle } from 'lodash'
 import { PlayCircleIcon,HeartIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/solid'
-import Songs2 from '../../components/Songs2'
 import { ClockIcon } from '@heroicons/react/24/outline'
 import { useRecoilState } from 'recoil'
 import { scrollState } from '../../atoms/scrollAtom'
+import Songs from '../../components/Playlist/Songs'
 
 const colors = [
   'bg-indigo-500',
@@ -51,6 +51,7 @@ const Playlist = () => {
   }, [scroll]);
 
   console.log('renderizando playlist')
+  console.log('tracks',playlist?.tracks?.items)
 
   return (
     <div className='flex-grow text-white bg-zinc-900 w-full'>
@@ -78,11 +79,11 @@ const Playlist = () => {
             <div className='flex items-center'>TÍTULO</div>
             <div className='flex items-center'>ÁLBUM</div>
             <div className='flex items-center'>AGREGADO EL</div>
-            <div className='flex items-center'><ClockIcon className='w-5 h-5'/></div>
+            <div className='flex items-center justify-end'><ClockIcon className='w-5 h-5 mr-8'/></div>
           </div>
         </div>
         <div className='px-8'>
-          <Songs2 playlist={playlist}/>
+          <Songs tracks={playlist?.tracks?.items}/>
         </div>
       </div>
     </div>

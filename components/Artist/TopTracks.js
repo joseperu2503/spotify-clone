@@ -6,14 +6,12 @@ const TopTracks = ({topTracks}) => {
 
   const [seeMore, setSeeMore] = useState(false);
   return (
-    <div>
+    <div className='mb-10'>
       <h2 className='text-2xl font-bold mb-5'>Popular</h2>
       <div>
         {topTracks.map( (track, index) => {
-          if(!seeMore && index < 5){
-            return <TopTrack track={track} index={index}/>
-          }if(seeMore){
-            return <TopTrack track={track} index={index}/>
+          if((!seeMore && index < 5) || seeMore){
+            return <TopTrack track={track} index={index} key={index}/>
           }
         })}
       </div>

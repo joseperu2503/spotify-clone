@@ -14,6 +14,7 @@ module.exports = {
       },
       height: {
         'header-artist': '40vh',
+        'header-album': '30vh',
       }
     },
   },

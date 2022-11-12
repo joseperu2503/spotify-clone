@@ -11,6 +11,7 @@ import { useRecoilState } from 'recoil'
 import { scrollState } from '../../atoms/scrollAtom'
 import { Icon } from '@iconify/react';
 import TopTracks from '../../components/Artist/TopTracks'
+import Discography from '../../components/Artist/Discography'
 
 const colors = [
   'bg-indigo-500',
@@ -27,6 +28,7 @@ const Artist = () => {
   const { query } = useRouter()
   const [artist, setArtist] = useState({});
   const [topTracks, setTopTracks] = useState([]);
+  const [albums, setAlbums] = useState([]);
   const [color, setColor] = useState(null);
   const [headerTop, setHeaderTop] = useState(false);
   const [scroll, setScroll] = useRecoilState(scrollState);
@@ -38,6 +40,7 @@ const Artist = () => {
       if(spotifyApi.getAccessToken()){
         getArtistInfo()
         getTopTracks()
+        getAlbums()
       }
     }
   }, [query.id, spotifyApi])
@@ -69,9 +72,18 @@ const Artist = () => {
     .catch(error => console.log('error al cargar el top del artista ',error))
   }
 
+  const getAlbums = () => {
+    spotifyApi.getArtistAlbums(artistId.current,{ limit: 6 },)
+    .then(data => {
+      console.log('albums',data.body.items)
+      setAlbums(data.body.items)
+    })
+    .catch(error => console.log('error al cargar los albums del artista ',error))
+  }
+
 
   return (
-    <div className='flex-grow text-white bg-zinc-900 w-full min-h-screen'>
+    <div className='flex-grow text-white bg-neutral-900 w-full min-h-screen'>
       <section className={`flex ${color} h-header-artist min-h-[340px] px-8 pb-6 w-full relative bg-no-repeat bg-cover bg-center`} style={{backgroundImage: `url(${artist?.images?.[0].url})`}}>
         <div className='flex flex-col justify-end w-full'>
           <span className='flex gap-2 items-center'>
@@ -99,6 +111,7 @@ const Artist = () => {
       </div>
       <div className='px-8'>
         <TopTracks topTracks={topTracks}/>
+        <Discography albums={albums}/>
       </div>
       <div className='h-40'>
 

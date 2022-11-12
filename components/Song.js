@@ -28,7 +28,7 @@ const Song = ({order, track}) => {
       <div className='grid grid-cols-song items-center gap-4'>
         <div className='flex justify-end'>{order + 1}</div>
         <div className='flex gap-4'>
-          <img className='h-10 w-10' src={track.track.album.images[0].url} alt="" />
+          <img className='h-10 w-10' src={track.track?.album.images[0].url} alt="" />
           <div className='grid'>
             <p className='text-white truncate'>{track.track.name}</p>
             <p className='text-sm hover:underline '>
