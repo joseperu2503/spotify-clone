@@ -7,6 +7,18 @@ const Album = ({album, type='album'}) => {
 
   const [hover, setHover] = useState(false);
   const router = useRouter()
+  const content = () => {
+    switch (type) {
+      case 'album':
+        return <span className='text-sm text-gray-300 capitalize'>{yearAlbum(album)} &bull; {album.album_type}</span>
+      case 'playlist':
+        return <span className='text-sm text-gray-300 capitalize'>by {album.owner.display_name}</span>
+      default:
+        return <span className='text-sm text-gray-300 capitalize'>{album.artists[0].name}</span>;
+    }
+
+  }
+
   return (
     <div
       className='p-4 bg-neutral-800 rounded-md hover:bg-neutral-700 transition-all cursor-pointer'
@@ -22,12 +34,7 @@ const Album = ({album, type='album'}) => {
       </div>
       <div className='flex flex-col'>
         <span className='truncate font-bold mb-1'>{album.name}</span>
-          {type == 'album'
-            ?
-            <span className='text-sm text-gray-300 capitalize'>{yearAlbum(album)} &bull; {album.album_type}</span>
-            :
-            <span className='text-sm text-gray-300 capitalize'>{album.artists[0].name}</span>
-          }
+          {content()}
       </div>
     </div>
   )
