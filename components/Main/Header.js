@@ -12,7 +12,7 @@ const Header = ({session}) => {
   const router = useRouter()
   const [scroll, setScroll] = useRecoilState(scrollState);
   const [opacity, setOpacity] = useState(0);
-  const [searchValue, setSearchValue] = useState(router.query.search );
+  const [searchValue, setSearchValue] = useState('');
 
 
   console.log('renderizando header')
@@ -31,9 +31,9 @@ const Header = ({session}) => {
 
   useEffect(() => {
     console.log('router',router)
-    // if(router.pathname.startsWith('/search')){
-    //   setSearchValue(router.query.search)
-    // }
+    if(router.pathname.startsWith('/search') && router.query.search){
+      setSearchValue(router.query.search)
+    }
   }, [router]);
 
   const changeSearchValue = (value) => {

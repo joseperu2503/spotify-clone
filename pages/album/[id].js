@@ -86,7 +86,7 @@ const Album = () => {
             <div className='flex items-center justify-end'><ClockIcon className='w-5 h-5 mr-8'/></div>
           </div>
         </div>
-        <div className='px-8'>
+        <div className='px-8 pb-28'>
           <Songs tracks={album?.tracks?.items}/>
         </div>
       </div>

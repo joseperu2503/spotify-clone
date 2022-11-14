@@ -4,7 +4,7 @@ import { millisToMinutesAndSeconds } from '../../lib/time'
 import { Icon } from '@iconify/react';
 import { useRouter } from 'next/router';
 
-const Song = ({track,index}) => {
+const Song = ({track,index,widthImage = false}) => {
 
   const [hover, setHover] = useState(false);
   const router = useRouter()
@@ -16,15 +16,19 @@ const Song = ({track,index}) => {
       onMouseLeave={() => setHover(false)}
     >
       <div className='flex items-center'>{ hover ? (<Icon icon="clarity:play-solid" className='w-4 h-4'/>): index + 1}</div>
-      <div className='flex justify-center flex-col'>
-        <p className='text-white truncate'>{track.name}</p>
-        <p
-          className='text-sm text-gray-300 hover:underline cursor-pointer'
-          onClick={() => router.push(`/artist/${track.artists[0].id}`)}
-        >
-            {track.artists[0].name}
-          </p>
+      <div className='flex gap-4 items-center'>
+        {widthImage && <img className='h-10 w-10' src={track.album.images[0].url} alt="" />}
+        <div className='flex justify-center flex-col'>
+          <p className='text-white truncate'>{track.name}</p>
+          <p
+            className='text-sm text-gray-300 hover:underline cursor-pointer'
+            onClick={() => router.push(`/artist/${track.artists[0].id}`)}
+          >
+              {track.artists[0].name}
+            </p>
+        </div>
       </div>
+
       <div className='flex justify-end items-center'>
         <Icon icon="fluent:heart-20-regular" className={`w-5 h-5 text-gray-300 hover:text-white mr-4 ${!hover && 'opacity-0'}`}/>
         <p className='mr-4'>{millisToMinutesAndSeconds(track.duration_ms)}</p>

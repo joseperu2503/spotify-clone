@@ -11,12 +11,12 @@ const Artist = ({artist}) => {
   return (
     <Link
       href={`/artist/${artist.id}`}
-      className='p-4 bg-neutral-800 rounded-md hover:bg-neutral-700 transition-all cursor-pointer'
+      className='p-4 bg-neutral-800 rounded-md hover:bg-neutral-700 transition-all cursor-pointer flex flex-col'
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <div className='mb-4 relative'>
-        <img src={artist.images[0].url} alt="" className='rounded-full'/>
+      <div className='mb-4 relative grow'>
+        <img src={artist.images[2].url} alt="" className='rounded-full h-full object-cover'/>
         <PlayCircleIcon
           className={`button w-12 h-12 text-green-400 hover:scale-105 absolute right-2  transition-all ease-in-out duration-300  ${hover ? 'bottom-2 opacity-100' : '-bottom-2 opacity-0'}`}
         />
