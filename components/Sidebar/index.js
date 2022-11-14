@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline'
 
 import { signOut, useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useSpotify from '../../hooks/useSpotify'
 import { useRecoilState } from 'recoil'
 import { playlistIdState } from '../../atoms/playlistAtom'
@@ -21,6 +21,8 @@ import SearchIcon from './Icons/Search'
 import CollectionIcon from './Icons/Collection'
 import PlusIcon from './Icons/Plus'
 import HeartSolidIcon from './Icons/HeartSolid'
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+
 
 const Li = () => {
 
@@ -32,7 +34,9 @@ function Sidebar() {
   const spotifyApi = useSpotify()
   const {data: session, status } = useSession()
   const [playlists, setPlaylists] = useState([])
+  const [playlistsHeigth, setPlaylistsHeigth] = useState(0)
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState)
+  const myRef = useRef();
 
   console.log('ypu picked playlist >> ', playlistId)
 
@@ -46,10 +50,15 @@ function Sidebar() {
     }
   }, [session, spotifyApi]);
 
+  useEffect(() => {
+    console.log('myRef',myRef);
+    setPlaylistsHeigth(myRef.current._osTargetRef.current.clientHeight)
+  }, []);
+
   console.log(playlists)
 
   return (
-    <div className='fixed flex flex-col top-0 left-0 w-60 pb-36 text-sidebar-gray pt-6 text-xs lg:text-sm border-r border-gray-900 overflow-y-scroll scrollbar-hide h-screen '>
+    <div className='fixed flex flex-col top-0 left-0 w-60 pb-36 text-sidebar-gray pt-6 text-xs lg:text-sm border-r border-gray-900 scrollbar-hide h-screen '>
       <div className='px-6 mb-[18px] min-h-[47.59px]'>
         <Link href={'/hola'} className="">
           <SpotifyIcon/>
@@ -96,10 +105,28 @@ function Sidebar() {
           <div>
             <hr className='h-[1px] mx-6 mt-2 border-none bg-[#282828]'/>
           </div>
-          <div>
-            { playlists.map( playlist => (
-              <Playlist key={playlist.id} playlist={playlist}/>
-            ))}
+          <div className='h-full'>
+            <OverlayScrollbarsComponent ref={myRef} options={{
+              className       : "os-theme-light",
+              resize          : "both",
+              sizeAutoCapable : true,
+              paddingAbsolute : true,
+              scrollbars : {
+                clickScrolling : true
+              },
+              callbacks : {
+                onScroll : null,
+              }
+            }}>
+              <div className='h-[calc(100vh_-_350px)] pt-2' >
+                { playlists.map( playlist => (
+                  <Playlist key={playlist.id} playlist={playlist}/>
+                ))}
+              </div>
+
+
+            </OverlayScrollbarsComponent>
+
           </div>
         </div>
 
