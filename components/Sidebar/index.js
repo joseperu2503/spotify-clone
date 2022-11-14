@@ -60,7 +60,7 @@ function Sidebar() {
   return (
     <div className='fixed flex flex-col top-0 left-0 w-60 pb-36 text-sidebar-gray pt-6 text-xs lg:text-sm border-r border-gray-900 scrollbar-hide h-screen '>
       <div className='px-6 mb-[18px] min-h-[47.59px]'>
-        <Link href={'/hola'} className="">
+        <Link href={'/'} className="">
           <SpotifyIcon/>
         </Link>
       </div>
