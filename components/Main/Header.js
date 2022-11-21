@@ -45,20 +45,22 @@ const Header = ({session}) => {
     <div className='fixed left-60 right-0 z-10 h-16 '>
         <div className=' absolute bg-black right-0 left-0 top-0 bottom-0' style={{opacity: opacity}}></div>
         <header className='absolute h-16 flex justify-between px-8 items-center gap-4 w-full'>
-          <div className='flex bg-white rounded-full h-10 items-center px-3 gap-4 w-[363px]'>
-            <SearchIcon/>
-            <input
-              type="text"
-              placeholder='What do you want to listen to?'
-              className='outline-none grow text-sm'
-              value={searchValue}
-              onChange={(e) => changeSearchValue(e.target.value)}
-            />
-            <div className='cursor-pointer' onClick={() => changeSearchValue('')}>
-              <ClearIcon/>
-            </div>
-
+          <div>
+            {router.pathname.startsWith('/search') && <div className='flex bg-white rounded-full h-10 items-center px-3 gap-4 w-[363px]'>
+              <SearchIcon/>
+              <input
+                type="text"
+                placeholder='What do you want to listen to?'
+                className='outline-none grow text-sm'
+                value={searchValue}
+                onChange={(e) => changeSearchValue(e.target.value)}
+              />
+              <div className='cursor-pointer' onClick={() => changeSearchValue('')}>
+                <ClearIcon/>
+              </div>
+            </div>}
           </div>
+
           <div
             className='flex items-center text-white h-8 gap-2 bg-black  opacity-90 hover:opacity-80 cursor-pointer rounded-full p-0.5'
             onClick={() => signOut()}

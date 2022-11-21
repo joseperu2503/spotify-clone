@@ -66,13 +66,13 @@ function Sidebar() {
       </div>
       <ul>
         <li className='px-2'>
-          <Link href={'/hola'} className='flex items-center gap-4 px-4 h-10'>
+          <Link href={'/'} className='flex items-center gap-4 px-4 h-10'>
             <HomeIcon/>
             <span className='text-sm font-bold'>Home</span>
           </Link>
         </li>
         <li className='px-2'>
-          <Link href={'/hola'} className='flex items-center gap-4 px-4 h-10'>
+          <Link href={'/search'} className='flex items-center gap-4 px-4 h-10'>
             <SearchIcon/>
             <span className='text-sm font-bold'>Search</span>
           </Link>
